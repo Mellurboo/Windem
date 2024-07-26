@@ -7,9 +7,9 @@ Fyndem uses a mix of rust and node.js to call data from websites with the userna
 
 ## Installation 🗒️
 Firstly, download [Fynder's most recent version](https://github.com/YourAva/Fyndem/releases)'s .zip, and unpack it. Once that's done, make sure you're in the directory ``fyndem-root`` is in (so you can see the unpacked folder) and run these commands.
-``mv fyndem-root ~/.local/bin
+```mv fyndem-root ~/.local/bin
 mv ~/.local/bin/fyndem-root/fyndem ~/.local/bin
-sudo snap insall chromium``
+sudo snap insall chromium```
 now, when you enter a command line interface, and run ``fyndem``, it should run fyndem. Good luck, and happy hacking!
 
 ## Can I help in any way?
