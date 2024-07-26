@@ -1,0 +1,10 @@
+[package]
+name = "Fyndem"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+colored = "2.1.0"
+reqwest = { version = "0.12.5", features = ["blocking"] }
+scraper = "0.19.1"
+tokio = { version = "1", features = ["full"] }
