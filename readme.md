@@ -1,3 +1,4 @@
+
 # FYNDEM 📹
 Fyndem is a piece of linux command line software that is used to gather open source intelligence about an individual over mutliple social media platforms, by streamlining the process of finding all registered accounts under a username we can quickly gather a large amount of data on someone, to be used for good or bad.
 ## How does it work?
@@ -7,11 +8,12 @@ Fyndem uses a mix of rust and node.js to call data from websites with the userna
 
 ## Installation 🗒️
 Firstly, download [Fynder's most recent version](https://github.com/YourAva/Fyndem/releases)'s .zip, and unpack it. Once that's done, make sure you're in the directory ``fyndem-root`` is in (so you can see the unpacked folder) and run these commands.
-```mv fyndem-root ~/.local/bin
-mv ~/.local/bin/fyndem-root/fyndem ~/.local/bin
-sudo snap insall chromium```
+``mv fyndem-root ~/.local/bin``
+``mv ~/.local/bin/fyndem-root/fyndem ~/.local/bin``
+``sudo snap insall chromium``
 now, when you enter a command line interface, and run ``fyndem``, it should run fyndem. Good luck, and happy hacking!
 
 ## Can I help in any way?
 Absolutely. Adding more and more social media platforms to Fyndem is ***no easy task***, it will take hours of work and most likely even more addition to the backend to make it adaptable to the differences of each website, so, if you want to go ahead and clone the repository to make some changes, do so, and submit a pull request. Do keep in mind I'm a solo dev that can't spend every day checking github for a pull request, I urge you to DM on Discord if you have any questions or would like to notify me you've made one. ``avalikesbread_``
+
 
