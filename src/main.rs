@@ -104,9 +104,13 @@ async fn main() {
 
     let debug = args.contains(&"-d".to_string());
 
+    // check_social_by_html {username, link (without username), social media name, false search result, follow redirects, react to javascript, debug}
+
     print_banner();
     check_social_by_title(&format!("@{}", &args[1]), "https://www.youtube.com/", "YouTube", "404 Not Found", false, false, debug).await;
+    check_social_by_html(&format!("{}/", &args[1]), "https://www.facebook.com/", "Facebook", "This content isn't available at the moment", false, true, debug).await;
     check_social_by_title(&format!("@{}", &args[1]), "https://www.tiktok.com/", "TikTok", "Couldn’t find this account. Visit TikTok to discover more trending creators, hashtags, and sounds.", true, true, debug).await;
+    check_social_by_html(&args[1], "https://www.twitch.tv/", "Twitch", "Sorry. Unless you've got a time machine, that content is unavailable.", false, true, debug).await;
     check_social_by_title(&args[1], "https://www.flickr.com/photos/", "Flickr", "Oops! | Flickr", false, true, debug).await;
     check_social_by_title(&args[1], "https://github.com/", "Github", "Page not found", false, true, debug).await;
     check_social_by_html(&format!("{}.bsky.social", &args[1]), "https://bsky.app/profile/", "Bluesky", "Unable to resolve handle", false, true, debug).await;
@@ -116,5 +120,6 @@ async fn main() {
     println!("{}","\nFyndem can't conirm some webpages due to technical issues. Here are the links to check for yourself:".yellow().bold());
     println!("X: https://x.com/{}/",&args[1].yellow());
     println!("Reddit: https://www.reddit.com/user/{}/", &args[1].yellow());
+    println!("Tumblr: https://www.tumblr.com/{}", &args[1].yellow());
 }
 
