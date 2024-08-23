@@ -1,3 +1,4 @@
 /target
 /node_modules
 /src/fetch_title.js
+package-lock.json
