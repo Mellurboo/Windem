@@ -1,5 +1,6 @@
 //
 //  Struct definitions for target sites to check
+//  this is the "List of websites" target being the target site for scraping
 //
 
 use crate::r#impl::websources::target_site;

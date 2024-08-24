@@ -1,5 +1,6 @@
 //
 //  Checks the title of a webpage instead of HTML
+//  alternative to TITLE
 //
 
 use reqwest::{Client, StatusCode};

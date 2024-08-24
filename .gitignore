@@ -7,3 +7,10 @@ package-lock.json
 
 # SRC
 /src/package-lock.json
+
+
+#
+#   BEFORE YOU EDIT
+#       google if what you're about to do is safe?
+#       do not gitignore packages.json!
+#
