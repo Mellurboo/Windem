@@ -3,6 +3,7 @@
 //  alternative to TITLE
 //
 
+use crate::r#impl::write_result::write_result;
 use reqwest::{Client, StatusCode};
 use scraper::{Html, Selector};
 use std::error::Error;
@@ -24,10 +25,15 @@ pub async fn social_title_check(config: &target_site) -> Result<(), Box<dyn Erro
             .expect("Failed to execute command");
         let title = String::from_utf8_lossy(&output.stdout).trim().to_string();
 
+        if config.debug {
+            println!("{}", title);
+        }
+
         if title.contains(&config.to_check) {
             println!("{}: {}", config.social_name, "FAILED".red());
         } else {
             println!("{}: {}", config.social_name, request_url.green());
+            write_result(&format!("{}: {}", config.social_name, request_url));
         }
     } else {
         if config.follow_redirs {
@@ -45,10 +51,16 @@ pub async fn social_title_check(config: &target_site) -> Result<(), Box<dyn Erro
             .next()
             .and_then(|e| e.text().next())
             .unwrap_or("FYNDERERROR");
+
+        if config.debug {
+            println!("{}", title);
+        }
+
         if title.contains(&config.to_check) || title == "FYNDERERROR" {
             println!("{}: {}", config.social_name, "FAILED".red());
         } else {
             println!("{}: {}", config.social_name, request_url.green());
+            write_result(&format!("{}: {}", config.social_name, request_url));
         }
     }
 

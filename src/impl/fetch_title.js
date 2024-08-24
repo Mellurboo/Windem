@@ -18,12 +18,6 @@ const puppeteer = require('puppeteer-core');
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'domcontentloaded' });
 
-    await page.evaluate(async () => {
-      await new Promise(function (resolve) {
-        setTimeout(resolve, 5000)
-      });
-    });
-
     if (choice == "HTML") {
       const content = await page.content();
       console.log(content);

@@ -5,9 +5,11 @@ mod r#impl {
     pub mod html_check;
     pub mod title_check;
     pub mod targets;
+    pub mod write_result;
     pub mod websources;  // Import config module
 }
 
+use r#impl::write_result::write_result;
 use r#impl::html_check::social_html_check;
 use r#impl::title_check::social_title_check;
 use r#impl::websources::target_site;
@@ -70,6 +72,8 @@ async fn main() {
     let bluesky_check = get_bluesky_target(user_name, debug);
     let medaltv_check = get_medaltv_target(user_name, debug);
 
+    write_result(&format!("[-----{}-----]", user_name));
+
     // running checks, this behaves like a list, if its not here it doesnt get run
     social_title_check(&youtube_check).await;
     social_html_check(&facebook_check).await;
@@ -93,4 +97,4 @@ async fn main() {
 
 
 
-// Mellurboo was here <3
+// Mellurboo wasn't here <3

@@ -2,13 +2,13 @@
 //  For sites that require HTML Checking over the TITLE checking
 //
 
+use crate::r#impl::write_result::write_result;
 use reqwest::{Client, StatusCode};
 use std::error::Error;
 use std::process::Command;
 use colored::*;
 use tokio::time::{sleep, Duration};
 use super::websources::target_site;
-
 
 pub async fn social_html_check(config: &target_site) -> Result<(), Box<dyn Error>> {
     let url = format!("{}{}", config.link, config.user_name);
@@ -29,6 +29,7 @@ pub async fn social_html_check(config: &target_site) -> Result<(), Box<dyn Error
             println!("{}: {}", config.social_name, "FAILED".red());
         } else {
             println!("{}: {}", config.social_name, request_url.green());
+            write_result(&format!("{}: {}", config.social_name, request_url));
         }
     } else {
         if config.follow_redirs {
@@ -46,6 +47,7 @@ pub async fn social_html_check(config: &target_site) -> Result<(), Box<dyn Error
             println!("{}: {}", config.social_name, "FAILED".red());
         } else {
             println!("{}: {}", config.social_name, request_url.green());
+            write_result(&format!("{}: {}", config.social_name, request_url));
         }
     }
 
