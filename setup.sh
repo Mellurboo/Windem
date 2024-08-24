@@ -23,9 +23,18 @@ for package in "${NPM_PACKAGES[@]}"; do
   npm install "$package" -y
 done
 
+echo -e "${PRIMARY} Running install script just to be safe"
+
+npm i
+
 echo -e "${PRIMARY}Installing Chromium${ENDCOLOR}"
 
 sudo snap install chromium
+
+echo -e "${PRIMARY}Setting up executable Scripts"
+
+chmod +x build.sh
+chmod +x clean.sh
 
 echo " "
 echo -e "${RED}Install helper script by Mellurboo"

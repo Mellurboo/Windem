@@ -1,4 +1,16 @@
-/target
+# ROOT
+/build
+/dist
 /node_modules
-/src/fetch_title.js
-/package-lock.json
+/target
+package-lock.json
+
+# SRC
+/src/package-lock.json
+
+
+#
+#   BEFORE YOU EDIT
+#       google if what you're about to do is safe?
+#       do not gitignore packages.json!
+#
