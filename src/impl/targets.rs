@@ -92,3 +92,16 @@ pub fn get_bluesky_target(user_name: &str, debug: bool) -> target_site {
 
     )
 }
+
+pub fn get_medaltv_target(user_name: &str, debug: bool) -> target_site {
+    target_site::new(
+        user_name,
+        "https://medal.tv/u/",
+        "MedalTV",
+        "That user does not exist.",
+        false,
+        true,
+        debug,
+
+    )
+}

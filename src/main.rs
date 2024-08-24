@@ -18,7 +18,8 @@ use r#impl::targets::{
     get_twitch_target,
     get_flickr_target,
     get_github_target,
-    get_bluesky_target
+    get_bluesky_target,
+    get_medaltv_target
 };
 
 
@@ -67,6 +68,7 @@ async fn main() {
     let flickr_check = get_flickr_target(user_name, debug);
     let github_check = get_github_target(user_name, debug);
     let bluesky_check = get_bluesky_target(user_name, debug);
+    let medaltv_check = get_medaltv_target(user_name, debug);
 
     // running checks, this behaves like a list, if its not here it doesnt get run
     social_title_check(&youtube_check).await;
@@ -76,6 +78,7 @@ async fn main() {
     social_title_check(&flickr_check).await;
     social_title_check(&github_check).await;
     social_html_check(&bluesky_check).await;
+    social_html_check(&medaltv_check).await;
 
     println!(
         "{}",
