@@ -54,7 +54,6 @@ async fn main() {
     }
 
     let debug = args.contains(&"-d".to_string());
-    let show_title = args.contains(&"-t".to_string());
 
     print_banner();
 

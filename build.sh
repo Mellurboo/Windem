@@ -1,6 +1,5 @@
-cargo b
-
 npm i
+cargo b
 
 mkdir build
 
