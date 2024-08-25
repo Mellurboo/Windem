@@ -3,6 +3,8 @@ const puppeteer = require('puppeteer-core');
 (async () => {
   const url = process.argv[2];
   const choice = process.argv[3];
+  const delay = parseInt(process.argv[4], 10) || 0; // Delay (in ms), only used for polling
+  const pollInterval = 500; // Poll every 500 ms
 
   if (!url) {
     console.error('Please provide a URL.');
@@ -15,15 +17,47 @@ const puppeteer = require('puppeteer-core');
       executablePath: '/snap/bin/chromium', // Replace with your actual path
       headless: true // Set to false if you want to see the browser
     });
+
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'domcontentloaded' });
 
-    if (choice == "HTML") {
+    if (choice === "HTML") {
+      // Non-polling branch for HTML content
       const content = await page.content();
       console.log(content);
-    } else if (choice == "TITLE") {
-      const title = await page.title();
-      console.log(title);
+    } else if (choice === "TITLE") {
+      // Polling branch for title changes
+      let titlesString = '';
+      let lastTitle = '';
+
+      const checkTitle = async () => {
+        try {
+          const currentTitle = await page.title();
+          if (currentTitle !== lastTitle) {
+            titlesString += currentTitle + '\n';
+            lastTitle = currentTitle;
+          }
+        } catch (error) {
+          console.error('Error fetching title:', error);
+        }
+      };
+
+      // Start polling for title changes
+      const pollForTitleChanges = setInterval(async () => {
+        await checkTitle();
+      }, pollInterval);
+
+      // Perform an initial title check
+      await checkTitle();
+
+      // Wait for the specified delay
+      if (delay > 0) {
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+
+      // Stop polling and output the collected titles
+      clearInterval(pollForTitleChanges);
+      console.log(titlesString.trim());
     }
 
     await browser.close();
@@ -32,4 +66,3 @@ const puppeteer = require('puppeteer-core');
     process.exit(1);
   }
 })();
-

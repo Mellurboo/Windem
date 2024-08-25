@@ -15,6 +15,7 @@ use r#impl::title_check::social_title_check;
 use r#impl::websources::target_site;
 use r#impl::targets::{
     get_youtube_target,
+    get_twitter_target,
     get_facebook_target,
     get_tiktok_target,
     get_twitch_target,
@@ -64,6 +65,7 @@ async fn main() {
 
     // list of the checks (add as you need it doenst matter)
     let youtube_check = get_youtube_target(user_name, debug);
+    let twitter_check = get_twitter_target(user_name, debug);
     let facebook_check = get_facebook_target(user_name, debug);
     let tiktok_check = get_tiktok_target(user_name, debug);
     let twitch_check = get_twitch_target(user_name, debug);
@@ -76,6 +78,7 @@ async fn main() {
 
     // running checks, this behaves like a list, if its not here it doesnt get run
     social_title_check(&youtube_check).await;
+    social_title_check(&twitter_check).await;
     social_html_check(&facebook_check).await;
     social_title_check(&tiktok_check).await;
     social_html_check(&twitch_check).await;
@@ -90,11 +93,10 @@ async fn main() {
             .yellow()
             .bold()
     );
-    println!("X: https://x.com/{}/", user_name.yellow());
     println!("Reddit: https://www.reddit.com/user/{}/", user_name.yellow());
     println!("Tumblr: https://www.tumblr.com/{}", user_name.yellow());
+
+    println!("\nA log of this session has been written to your log path.")
 }
-
-
 
 // Mellurboo wasn't here <3

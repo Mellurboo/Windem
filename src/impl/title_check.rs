@@ -21,6 +21,7 @@ pub async fn social_title_check(config: &target_site) -> Result<(), Box<dyn Erro
             .arg("src/impl/fetch_title.js")
             .arg(url)
             .arg("TITLE")
+            .arg(config.delay.to_string())
             .output()
             .expect("Failed to execute command");
         let title = String::from_utf8_lossy(&output.stdout).trim().to_string();
@@ -28,12 +29,21 @@ pub async fn social_title_check(config: &target_site) -> Result<(), Box<dyn Erro
         if config.debug {
             println!("{}", title);
         }
-
-        if title.contains(&config.to_check) {
-            println!("{}: {}", config.social_name, "FAILED".red());
+        
+        if (!config.reversed) {
+            if title.to_lowercase().contains(&config.to_check.to_lowercase()) {
+                println!("{}: {}", config.social_name, "FAILED".red());
+            } else {
+                println!("{}: {}", config.social_name, request_url.green());
+                write_result(&format!("{}: {}", config.social_name, request_url));
+            }
         } else {
-            println!("{}: {}", config.social_name, request_url.green());
-            write_result(&format!("{}: {}", config.social_name, request_url));
+            if title.to_lowercase().contains(&config.to_check.to_lowercase()) {
+                println!("{}: {}", config.social_name, request_url.green());
+                write_result(&format!("{}: {}", config.social_name, request_url));
+            } else {
+                println!("{}: {}", config.social_name, "FAILED".red());
+            }
         }
     } else {
         if config.follow_redirs {
@@ -55,12 +65,21 @@ pub async fn social_title_check(config: &target_site) -> Result<(), Box<dyn Erro
         if config.debug {
             println!("{}", title);
         }
-
-        if title.contains(&config.to_check) || title == "FYNDERERROR" {
-            println!("{}: {}", config.social_name, "FAILED".red());
+        
+        if (!config.reversed) {
+            if title.contains(&config.to_check) {
+                println!("{}: {}", config.social_name, "FAILED".red());
+            } else {
+                println!("{}: {}", config.social_name, request_url.green());
+                write_result(&format!("{}: {}", config.social_name, request_url));
+            }
         } else {
-            println!("{}: {}", config.social_name, request_url.green());
-            write_result(&format!("{}: {}", config.social_name, request_url));
+            if !title.contains(&config.to_check) {
+                println!("{}: {}", config.social_name, "FAILED".red());
+            } else {
+                println!("{}: {}", config.social_name, request_url.green());
+                write_result(&format!("{}: {}", config.social_name, request_url));
+            }
         }
     }
 

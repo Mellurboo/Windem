@@ -10,7 +10,9 @@ pub struct target_site {
     pub to_check: String,
     pub follow_redirs: bool,
     pub react_to_js: bool,
+    pub reversed: bool,
     pub debug: bool,
+    pub delay: i32,
 }
 
 impl target_site {
@@ -21,7 +23,9 @@ impl target_site {
         to_check: &str,
         follow_redirs: bool,
         react_to_js: bool,
+        reversed: bool,
         debug: bool,
+        delay: i32,
     ) -> Self {
         target_site {
             user_name: user_name.to_string(),
@@ -30,7 +34,9 @@ impl target_site {
             to_check: to_check.to_string(),
             follow_redirs,
             react_to_js,
+            reversed,
             debug,
+            delay,
         }
     }
 }

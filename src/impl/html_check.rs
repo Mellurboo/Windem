@@ -19,17 +19,28 @@ pub async fn social_html_check(config: &target_site) -> Result<(), Box<dyn Error
             .arg("src/impl/fetch_title.js")
             .arg(url)
             .arg("HTML")
+            .arg(config.delay.to_string())
             .output()
             .expect("\nThere was an error loading/running the fetch_title.js script\nExiting program...");
         let body = String::from_utf8_lossy(&output.stdout).trim().to_string();
         if config.debug {
             println!("{body}");
         }
-        if body.contains(&config.to_check) {
-            println!("{}: {}", config.social_name, "FAILED".red());
+
+        if (!config.reversed) {
+            if body.contains(&config.to_check) {
+                println!("{}: {}", config.social_name, "FAILED".red());
+            } else {
+                println!("{}: {}", config.social_name, request_url.green());
+                write_result(&format!("{}: {}", config.social_name, request_url));
+            }
         } else {
-            println!("{}: {}", config.social_name, request_url.green());
-            write_result(&format!("{}: {}", config.social_name, request_url));
+            if !body.contains(&config.to_check) {
+                println!("{}: {}", config.social_name, "FAILED".red());
+            } else {
+                println!("{}: {}", config.social_name, request_url.green());
+                write_result(&format!("{}: {}", config.social_name, request_url));
+            }
         }
     } else {
         if config.follow_redirs {
@@ -43,11 +54,20 @@ pub async fn social_html_check(config: &target_site) -> Result<(), Box<dyn Error
         if config.debug {
             println!("{body}");
         }
-        if body.contains(&config.to_check) {
-            println!("{}: {}", config.social_name, "FAILED".red());
+        if (!config.reversed) {
+            if body.contains(&config.to_check) {
+                println!("{}: {}", config.social_name, "FAILED".red());
+            } else {
+                println!("{}: {}", config.social_name, request_url.green());
+                write_result(&format!("{}: {}", config.social_name, request_url));
+            }
         } else {
-            println!("{}: {}", config.social_name, request_url.green());
-            write_result(&format!("{}: {}", config.social_name, request_url));
+            if !body.contains(&config.to_check) {
+                println!("{}: {}", config.social_name, "FAILED".red());
+            } else {
+                println!("{}: {}", config.social_name, request_url.green());
+                write_result(&format!("{}: {}", config.social_name, request_url));
+            }
         }
     }
 
