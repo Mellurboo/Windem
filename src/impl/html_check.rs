@@ -2,7 +2,7 @@
 //  For sites that require HTML Checking over the TITLE checking
 //
 
-use crate::r#impl::write_result::write_result;
+use crate::r#client::write_log::write_log;
 use reqwest::{Client, StatusCode};
 use std::error::Error;
 use std::process::Command;
@@ -32,14 +32,14 @@ pub async fn social_html_check(config: &target_site) -> Result<(), Box<dyn Error
                 println!("{}: {}", config.social_name, "FAILED".red());
             } else {
                 println!("{}: {}", config.social_name, request_url.green());
-                write_result(&format!("{}: {}", config.social_name, request_url));
+                write_log(&format!("{}: {}", config.social_name, request_url));
             }
         } else {
             if !body.contains(&config.to_check) {
                 println!("{}: {}", config.social_name, "FAILED".red());
             } else {
                 println!("{}: {}", config.social_name, request_url.green());
-                write_result(&format!("{}: {}", config.social_name, request_url));
+                write_log(&format!("{}: {}", config.social_name, request_url));
             }
         }
     } else {
@@ -59,14 +59,14 @@ pub async fn social_html_check(config: &target_site) -> Result<(), Box<dyn Error
                 println!("{}: {}", config.social_name, "FAILED".red());
             } else {
                 println!("{}: {}", config.social_name, request_url.green());
-                write_result(&format!("{}: {}", config.social_name, request_url));
+                write_log(&format!("{}: {}", config.social_name, request_url));
             }
         } else {
             if !body.contains(&config.to_check) {
                 println!("{}: {}", config.social_name, "FAILED".red());
             } else {
                 println!("{}: {}", config.social_name, request_url.green());
-                write_result(&format!("{}: {}", config.social_name, request_url));
+                write_log(&format!("{}: {}", config.social_name, request_url));
             }
         }
     }

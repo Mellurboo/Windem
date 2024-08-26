@@ -1,18 +1,22 @@
 use std::env;
+use crate::write_log::write_log;
+use client::write_log::clear_log;
 use colored::*;
+
+mod r#client{
+    pub mod write_log;
+}
 
 mod r#impl {
     pub mod html_check;
     pub mod title_check;
     pub mod targets;
-    pub mod write_result;
-    pub mod websources;  // Import config module
+    pub mod websources;
 }
 
-use r#impl::write_result::write_result;
+use crate::r#client::write_log;
 use r#impl::html_check::social_html_check;
 use r#impl::title_check::social_title_check;
-use r#impl::websources::target_site;
 use r#impl::targets::{
     get_youtube_target,
     get_twitter_target,
@@ -27,32 +31,28 @@ use r#impl::targets::{
 
 
 fn print_banner() {
-    println!("{}", "[]================================[]".green().bold());
-
+    println!("{}", "[]=======~WINDEM~=======[]".green().bold());
     println!(
         "{}",
-        "\
-.____ ____ ____ ____ ____ ____ \n\
-||F |||Y |||N |||D |||E |||M ||\n\
-||__|||__|||__|||__|||__|||__||\n\
-|/__\\|/__\\|/__\\|/__\\|/__\\|/__\\|\n\t@AvaLikesBread\n"
-            .green()
-            .bold()
+        "Windem By Mellurboo\n
+        Forked from AvaLikesBread\n"
     );
 }
 
 #[tokio::main]
 async fn main() {
+    
     let args: Vec<String> = env::args().collect();
 
     if args.len() < 2 {
         println!(
-            "{}\nUsage: {} {}\n{}\n\t{}: debug",
-            "ARGUMENT ERROR!".red().bold(),
-            "fyndem".green().bold(),
+            "{}\nUsage: {} {}\n{}\n\t{}\n\t{}: debug",
+            "ILLEGAL ARGUMENTS!".red().bold(),
+            "windem".green().bold(),
             "<username>".yellow(),
             "Arguments".red().bold(),
-            "-d: Debug".yellow()
+            "-d: Debug".yellow(),
+            "-s: Silently only put results in a log file"
         );
         std::process::exit(1);
     }
@@ -74,7 +74,9 @@ async fn main() {
     let bluesky_check = get_bluesky_target(user_name, debug);
     let medaltv_check = get_medaltv_target(user_name, debug);
 
-    write_result(&format!("[-----{}-----]", user_name));
+    clear_log();
+
+    write_log(&format!("[-----{}-----]", user_name));
 
     // running checks, this behaves like a list, if its not here it doesnt get run
     social_title_check(&youtube_check).await;
@@ -89,7 +91,7 @@ async fn main() {
 
     println!(
         "{}",
-        "\nFyndem can't confirm some webpages due to technical limitations. Here are the links to check for yourself:"
+        "\nWindem can't confirm some webpages due to technical limitations. Here are the links to check for yourself:"
             .yellow()
             .bold()
     );
@@ -99,4 +101,4 @@ async fn main() {
     println!("\nA log of this session has been written to your log path.")
 }
 
-// Mellurboo wasn't here <3
+// Mellurboo OWNS THIS REPO GOOD LUCK CHANGING IT NOW BITCH

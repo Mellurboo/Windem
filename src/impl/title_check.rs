@@ -3,7 +3,7 @@
 //  alternative to TITLE
 //
 
-use crate::r#impl::write_result::write_result;
+use crate::r#client::write_log::write_log;
 use reqwest::{Client, StatusCode};
 use scraper::{Html, Selector};
 use std::error::Error;
@@ -35,12 +35,12 @@ pub async fn social_title_check(config: &target_site) -> Result<(), Box<dyn Erro
                 println!("{}: {}", config.social_name, "FAILED".red());
             } else {
                 println!("{}: {}", config.social_name, request_url.green());
-                write_result(&format!("{}: {}", config.social_name, request_url));
+                write_log(&format!("{}: {}", config.social_name, request_url));
             }
         } else {
             if title.to_lowercase().contains(&config.to_check.to_lowercase()) {
                 println!("{}: {}", config.social_name, request_url.green());
-                write_result(&format!("{}: {}", config.social_name, request_url));
+                write_log(&format!("{}: {}", config.social_name, request_url));
             } else {
                 println!("{}: {}", config.social_name, "FAILED".red());
             }
@@ -71,14 +71,14 @@ pub async fn social_title_check(config: &target_site) -> Result<(), Box<dyn Erro
                 println!("{}: {}", config.social_name, "FAILED".red());
             } else {
                 println!("{}: {}", config.social_name, request_url.green());
-                write_result(&format!("{}: {}", config.social_name, request_url));
+                write_log(&format!("{}: {}", config.social_name, request_url));
             }
         } else {
             if !title.contains(&config.to_check) {
                 println!("{}: {}", config.social_name, "FAILED".red());
             } else {
                 println!("{}: {}", config.social_name, request_url.green());
-                write_result(&format!("{}: {}", config.social_name, request_url));
+                write_log(&format!("{}: {}", config.social_name, request_url));
             }
         }
     }
