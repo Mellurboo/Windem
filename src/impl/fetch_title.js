@@ -14,7 +14,7 @@ const puppeteer = require('puppeteer-core');
   try {
     const browser = await puppeteer.launch({
       args: ['--disable-setuid-sandbox'],
-      executablePath: '/snap/bin/chromium', // Replace with your actual path
+      executablePath: 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe', // Path to Microsoft Edge
       headless: true // Set to false if you want to see the browser
     });
 
