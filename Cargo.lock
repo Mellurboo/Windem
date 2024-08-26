@@ -3,7 +3,7 @@
 version = 3
 
 [[package]]
-name = "Fyndem"
+name = "Wyndem"
 version = "0.1.0"
 dependencies = [
  "colored",
